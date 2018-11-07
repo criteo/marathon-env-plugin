@@ -12,5 +12,3 @@ libraryDependencies += "mesosphere.marathon" %% "plugin-interface" % "1.5.1" % "
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 libraryDependencies += "org.scalamock" %% "scalamock" % "4.0.0" % Test
-
-

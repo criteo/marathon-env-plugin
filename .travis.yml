@@ -4,3 +4,14 @@ scala:
 branches:
   only:
   - master
+before_deploy:
+- sbt package
+- mv target/scala-2.11/marathon-env-plugin_*.jar marathon-env-plugin.jar
+deploy:
+  provider: releases
+  api_key:
+    secure: OXbMCGpRannwwCKbdZJrpJ0u48GxK8aTSLPZYDstynCaynYmh9t7s8o8EI0pGxe382iQcc5dmWQLkrkpVo+ZcTsvkUQGt94G0H7iR19OBceN1Ws6/L0bZ05ylTG6gGkuQ6zl0N7p/jccKJRWpsc0/i9z/L/4mK2QNp6nuP//ZVtdFrTm1Doz03loGKTDnh03JDmx+NfVvlhzRa9TKtPUZi0MuY6aTz5mHZs67MHhT2S54rgvOY84OB8ypEh5RUKGhtv35KAkPrXlItDO6MTIrlkZpSzypTeKP/VsjqNwVB2xfGxFEZAS4Pt90A7ne0XSdCoqUVd5qmIr4dtVPKFAWIj6n8AG8MEcW48NYrJeVKIcBn3zh2KGL09UfPi2khOchVbhSg3X2zrNzBRhIV1AfRCk9MxNsE20h7prnSLYgzv55vF2JomaxEF+8F/td3GytYVp2JyJv4DL1fX4tQ5sDnzKubd5xnM3WJk8/SsMAUlbYzFM8AsjzXzwSiPh6QY+DXtOGgvv2LPPIyiXf2RtLDqcTseeho+5NEtwG8DxbOuhZ1ApOtqe/7/r+mBfrB1x5s3GsiVgrrAl/Xvx0Te3b1XG8mt7W0GkDTstsArGDbtsS0vAaHljEwXREbupvHxtsNV2uLNbK5KYNjNPzbWGX5a+S+E9sH5+ztcMSNFMWDo=
+  file: marathon-env-plugin.jar
+  skip_cleanup: true
+  on:
+    repo: criteo/marathon-env-plugin
