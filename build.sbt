@@ -1,5 +1,5 @@
 organization := "com.criteo"
-name := "marathon-criteo-plugin"
+name := "marathon-env-plugin"
 scalaVersion := "2.11.11"
 
 resolvers += Resolver.sonatypeRepo("releases")
