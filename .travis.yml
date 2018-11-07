@@ -1,9 +1,6 @@
 language: scala
 scala:
 - 2.11.5
-branches:
-  only:
-  - master
 before_deploy:
 - sbt package
 - mv target/scala-2.11/marathon-env-plugin_*.jar marathon-env-plugin.jar
@@ -16,3 +13,4 @@ deploy:
   on:
     repo: criteo/marathon-env-plugin
     tags: true
+    branche: master
