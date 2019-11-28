@@ -9,9 +9,11 @@ import org.apache.mesos.Protos._
 class CriteoEnvPlugin extends RunSpecTaskProcessor with PluginConfiguration
 {
   private[marathon] var envVariables = Map.empty[String, String]
+  private[marathon] var labels = Map.empty[String, String]
 
   def initialize(marathonInfo: Map[String, Any], configuration: play.api.libs.json.JsObject): Unit = {
     envVariables = (configuration \ "env").as[Map[String, String]]
+    labels = (configuration \ "labels").as[Map[String, String]]
   }
 
   override def taskInfo(appSpec: ApplicationSpec, builder: TaskInfo.Builder): Unit = {
@@ -26,6 +28,15 @@ class CriteoEnvPlugin extends RunSpecTaskProcessor with PluginConfiguration
     val commandBuilder = builder.getCommand.toBuilder
     commandBuilder.setEnvironment(envBuilder)
     builder.setCommand(commandBuilder)
+    var labelBuilder = builder.getLabels.toBuilder
+    labels.foreach {
+      case (key, value) =>
+        val label = Protos.Label.newBuilder()
+        label.setKey(key)
+        label.setValue(value)
+        labelBuilder.addLabels(label)
+    }
+    builder.setLabels(labelBuilder)
   }
 
   override def taskGroup(podSpec: PodSpec, executor: ExecutorInfo.Builder,
